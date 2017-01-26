@@ -1,4 +1,5 @@
-﻿  using System;
+﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace Vidley.Controllers
 
         public ActionResult Index()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
@@ -30,6 +31,11 @@ namespace Vidley.Controllers
         public ActionResult Details(int id)
         {
             var customer = _context.Customers.SingleOrDefault(x => x.Id == id);
+
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
 
             return View(customer);
         }

@@ -13,22 +13,22 @@
 
 @if (Model.Any())
 {
-    <table class="table">
+    <table class="table table-bordered">
         <tr>
             <th>
                 Customer
             </th>
-            <th></th>
+            <th>Discount Rate</th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var customer in Model)
         {
             <tr>
                 <td>
-                    <a href="@Url.Action("Details", "Customers", new { id=item.Id })">@item.Name</a>
-                    @*@Html.DisplayFor(modelItem => item.Name)*@
+                    <a href="@Url.Action("Details", "Customers", new { id=customer.Id })">@customer.Name</a>
                 </td>
                 <td>
+                    @customer.MembershipType.DiscountRate%
                     @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                         @Html.ActionLink("Customers", "Details", new { id=item.Id }) |
                         @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
