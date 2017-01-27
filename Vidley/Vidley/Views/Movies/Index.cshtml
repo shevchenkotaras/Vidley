@@ -10,20 +10,23 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
            Movie
         </th>
-        <th></th>
+        <th>
+           Genre
+        </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var movie in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.ActionLink(movie.Name, "Details", "Movies", new { id = movie.Id}, null)
         </td>
         <td>
+            @movie.Genre.Name
             @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@

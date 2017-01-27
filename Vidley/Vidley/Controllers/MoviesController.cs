@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using Vidley.Models;
 using Vidley.ViewModels;
 
@@ -10,6 +11,12 @@ namespace Vidley.Controllers
 {
     public class MoviesController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
         // GET: Movies
         public ActionResult Random()
         {
@@ -35,9 +42,10 @@ namespace Vidley.Controllers
 
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Details(int id)
         {
-            return Content("Id = " + id);
+            var movie = _context.Movies.Include(i => i.Genre).SingleOrDefault(x => x.Id == id);   
+            return View(movie);
         }
 
         //public ActionResult Index(int? pageIndex, string sortBy)
@@ -57,11 +65,7 @@ namespace Vidley.Controllers
 
         public ActionResult Index()
         {
-            var movies = new List<Movie>()
-            {
-                new Movie() {Id = 1, Name = "Shrek"},
-                new Movie() {Id = 2, Name = "Wall-e"}
-            };
+            var movies = _context.Movies.Include(x => x.Genre);
 
             return View(movies);
         }
