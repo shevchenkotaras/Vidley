@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Vidley.Models;
+using Vidley.ViewModels;
 
 namespace Vidley.Controllers
 {
@@ -24,13 +25,18 @@ namespace Vidley.Controllers
         public ActionResult Index()
         {
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-
+            
             return View(customers);
         }
 
         public ActionResult New()
         {
-            return View();
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel()
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View(viewModel);
         }
 
         public ActionResult Details(int id)
