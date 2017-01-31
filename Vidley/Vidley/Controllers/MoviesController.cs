@@ -42,27 +42,6 @@ namespace Vidley.Controllers
 
         }
 
-        public ActionResult Details(int id)
-        {
-            var movie = _context.Movies.Include(i => i.Genre).SingleOrDefault(x => x.Id == id);   
-            return View(movie);
-        }
-
-        //public ActionResult Index(int? pageIndex, string sortBy)
-        //{
-        //    if (!pageIndex.HasValue)
-        //    {
-        //        pageIndex = 1;
-        //    }
-
-        //    if (String.IsNullOrWhiteSpace(sortBy))
-        //    {
-        //        sortBy = "Name";
-        //    }
-
-        //    return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-        //}
-
         public ActionResult Index()
         {
             var movies = _context.Movies.Include(x => x.Genre);
@@ -74,6 +53,67 @@ namespace Vidley.Controllers
         public ActionResult ByReleaseYear(int year, int month)
         {
             return Content(year + "/" + month);
+        }
+
+        public ActionResult Create()
+        {
+            var genres = _context.Genres;
+            var movie = new EditMovieViewModel()
+            {
+                Genres = genres
+            };
+
+            return View(movie);
+        }
+
+        public ActionResult Save(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Movies.Add(movie);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var movie = _context.Movies.Include(i => i.Genre).SingleOrDefault(x => x.Id == id);
+            var genres = _context.Genres;
+
+            var viewNodel = new EditMovieViewModel()
+            {
+                Movie = movie,
+                Genres = genres
+            };
+            return View(viewNodel);
+        }
+
+        public ActionResult Update(Movie movie)
+        {
+            var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == movie.Id);
+
+            if (movieInDb == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                movieInDb.Name = movie.Name;
+                movieInDb.GenreId = movie.GenreId;
+                movieInDb.DateAdded = movie.DateAdded;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.NumberInStock = movie.NumberInStock;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
