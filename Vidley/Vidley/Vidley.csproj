@@ -267,11 +267,16 @@
     <Compile Include="Migrations\201701300528053_MovieNameNotNulable.Designer.cs">
       <DependentUpon>201701300528053_MovieNameNotNulable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701311445216_MakeMembershipTypeIdNullable.cs" />
+    <Compile Include="Migrations\201701311445216_MakeMembershipTypeIdNullable.Designer.cs">
+      <DependentUpon>201701311445216_MakeMembershipTypeIdNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\If10YearsIfAMember.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -409,6 +414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701300528053_MovieNameNotNulable.resx">
       <DependentUpon>201701300528053_MovieNameNotNulable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701311445216_MakeMembershipTypeIdNullable.resx">
+      <DependentUpon>201701311445216_MakeMembershipTypeIdNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

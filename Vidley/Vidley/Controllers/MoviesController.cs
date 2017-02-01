@@ -66,6 +66,7 @@ namespace Vidley.Controllers
             return View(movie);
         }
 
+        [HttpPost]
         public ActionResult Save(Movie movie)
         {
             if (ModelState.IsValid)
