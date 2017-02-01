@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201701311445216_MakeMembershipTypeIdNullable.Designer.cs">
       <DependentUpon>201701311445216_MakeMembershipTypeIdNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702011818359_MembershipTypeIdRemoveNulable.cs" />
+    <Compile Include="Migrations\201702011818359_MembershipTypeIdRemoveNulable.Designer.cs">
+      <DependentUpon>201702011818359_MembershipTypeIdRemoveNulable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -417,6 +421,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701311445216_MakeMembershipTypeIdNullable.resx">
       <DependentUpon>201701311445216_MakeMembershipTypeIdNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702011818359_MembershipTypeIdRemoveNulable.resx">
+      <DependentUpon>201702011818359_MembershipTypeIdRemoveNulable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

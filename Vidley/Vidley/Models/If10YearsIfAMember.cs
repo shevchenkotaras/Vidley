@@ -12,15 +12,10 @@ namespace Vidley.Models
         {
             var customer = (Customer)validationContext.ObjectInstance;
 
-            if (customer.MembershipTypeId == 1)
+            if (customer.MembershipTypeId == MembershipType.PayAsYouGo)
             {
                 return ValidationResult.Success;
             }
-
-            //if (customer.MembershipTypeId == null)
-            //{
-            //    return new ValidationResult("Choose membership type");
-            //}
 
             if (customer.BirthDate == null)
             {

@@ -26,7 +26,7 @@ namespace Vidley.Controllers
         public ActionResult Index()
         {
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-            
+
             return View(customers);
         }
 
@@ -35,6 +35,7 @@ namespace Vidley.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel()
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
             return View("CustomerForm", viewModel);
@@ -55,54 +56,38 @@ namespace Vidley.Controllers
         [HttpPost]
         public ActionResult Save(Customer customer)
         {
+            var errors = ModelState
+                 .Where(x => x.Value.Errors.Count > 0)
+                 .Select(x => new { x.Key, x.Value.Errors })
+                 .ToArray();
             if (!ModelState.IsValid)
             {
-                //var viewModel = new CustomerFormViewModel()
-                //{
-                //    Customer = customer,
-                //    MembershipTypes = _context.MembershipTypes.ToList()
-                //};
 
-                if (customer.Id == 0)
+                var viewModel = new CustomerFormViewModel()
                 {
-                    _context.Customers.Add(customer);
-                }
-                else
-                {
-                    var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
 
-                    customerInDb.Name = customer.Name;
-                    customerInDb.BirthDate = customer.BirthDate;
-                    customerInDb.MembershipTypeId = customer.MembershipTypeId;
-                    customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-                }
-
-                _context.SaveChanges();
-
-                //try
-                //{
-                //    // Your code...
-                //    // Could also be before try if you know the exception occurs in SaveChanges
-
-                   
-                //}
-                //catch (DbEntityValidationException e)
-                //{
-                //    foreach (var eve in e.EntityValidationErrors)
-                //    {
-                //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                //        foreach (var ve in eve.ValidationErrors)
-                //        {
-                //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                //                ve.PropertyName, ve.ErrorMessage);
-                //        }
-                //    }
-                //    throw;
-                //}
-
-
+                return View("CustomerForm", viewModel);
             }
+
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+
+                customerInDb.Name = customer.Name;
+                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            }
+
+            _context.SaveChanges();
+
             return RedirectToAction("Index", "Customers");
         }
 
