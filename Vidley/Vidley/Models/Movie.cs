@@ -8,6 +8,7 @@ namespace Vidley.Models
 {
     public class Movie
     {
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -27,6 +28,7 @@ namespace Vidley.Models
 
         [Display(Name = "Number In Stock")]
         [Required]
+        [Range(1, 20)]
         public int NumberInStock { get; set; }
     }
 }

@@ -58,18 +58,21 @@ namespace Vidley.Controllers
         public ActionResult Create()
         {
             var genres = _context.Genres;
-            var movie = new EditMovieViewModel()
+            var viewModel = new EditMovieViewModel()
             {
+                Movie = new Movie(),
                 Genres = genres
             };
 
-            return View(movie);
+            return View(viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
-            if (ModelState.IsValid)
+            movie.DateAdded = DateTime.Now;
+            if (ModelState.IsValid && movie.Id == 0)
             {
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
