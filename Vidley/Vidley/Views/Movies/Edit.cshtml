@@ -16,45 +16,45 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Movie.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Movie.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Movie.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Choose genre", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Choose genre", new { @class = "form-control" })
 
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Movie.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Movie.ReleaseDate, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Movie.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Movie.DateAdded, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Movie.DateAdded, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.NumberInStock, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NumberInStock, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Movie.NumberInStock, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Movie.NumberInStock, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.NumberInStock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NumberInStock, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.HiddenFor(id => Model.Movie.Id)
+        @Html.HiddenFor(id => Model.Id)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Update" class="btn btn-default" />

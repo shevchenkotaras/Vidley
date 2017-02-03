@@ -57,10 +57,10 @@ namespace Vidley.Controllers
 
         public ActionResult Create()
         {
-            var genres = _context.Genres;
-            var viewModel = new EditMovieViewModel()
+            var genres = _context.Genres.ToList();
+            var movie = new Movie();
+            var viewModel = new EditMovieViewModel(movie)
             {
-                Movie = new Movie(),
                 Genres = genres
             };
 
@@ -72,7 +72,18 @@ namespace Vidley.Controllers
         public ActionResult Save(Movie movie)
         {
             movie.DateAdded = DateTime.Now;
-            if (ModelState.IsValid && movie.Id == 0)
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new EditMovieViewModel(movie)
+                {
+                   Genres = _context.Genres.ToList()
+                };
+                return RedirectToAction("Update", viewModel);
+            }
+
+            
+            
+            if ( movie.Id == 0)
             {
                 _context.Movies.Add(movie);
                 _context.SaveChanges();
@@ -88,12 +99,13 @@ namespace Vidley.Controllers
         public ActionResult Edit(int id)
         {
             var movie = _context.Movies.Include(i => i.Genre).SingleOrDefault(x => x.Id == id);
-            var genres = _context.Genres;
 
-            var viewNodel = new EditMovieViewModel()
+            if (movie == null)
+                return HttpNotFound();
+
+            var viewNodel = new EditMovieViewModel(movie)
             {
-                Movie = movie,
-                Genres = genres
+                Genres = _context.Genres.ToList()
             };
             return View(viewNodel);
         }
@@ -110,7 +122,7 @@ namespace Vidley.Controllers
             {
                 movieInDb.Name = movie.Name;
                 movieInDb.GenreId = movie.GenreId;
-                movieInDb.DateAdded = movie.DateAdded;
+                //movieInDb.DateAdded = movie.DateAdded;
                 movieInDb.ReleaseDate = movie.ReleaseDate;
                 movieInDb.NumberInStock = movie.NumberInStock;
             }

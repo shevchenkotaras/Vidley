@@ -8,7 +8,6 @@ namespace Vidley.Models
 {
     public class Movie
     {
-        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -16,11 +15,12 @@ namespace Vidley.Models
         public Genre Genre { get; set; }
 
         [Display(Name = "Genre")]
+        [Required]
         public int GenreId { get; set; }
 
         [Display(Name = "Release Date")]
         [Required]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         [Display(Name = "Date Added")]
         [Required]
@@ -29,6 +29,6 @@ namespace Vidley.Models
         [Display(Name = "Number In Stock")]
         [Required]
         [Range(1, 20)]
-        public int NumberInStock { get; set; }
+        public int? NumberInStock { get; set; }
     }
 }
