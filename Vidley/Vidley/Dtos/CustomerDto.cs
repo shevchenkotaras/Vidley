@@ -19,7 +19,7 @@ namespace Vidley.Dtos
         
         public byte MembershipTypeId { get; set; }
         
-        [If18YearsIfAMember]
+        //[If18YearsIfAMember]
         public DateTime? BirthDate { get; set; }
     }
 }
