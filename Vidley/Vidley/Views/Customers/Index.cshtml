@@ -13,12 +13,11 @@
 
 @if (Model.Any())
 {
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="customers">
         <tr>
-            <th>
-                Customer
-            </th>
+            <th>Customer</th>
             <th>Membership Type</th>
+            <th>Delete</th>
         </tr>
 
         @foreach (var customer in Model)
@@ -29,9 +28,9 @@
                 </td>
                 <td>
                     @customer.MembershipType.Name
-                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                        @Html.ActionLink("Customers", "Details", new { id=item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                </td>
+                <td>
+                    <button data-customer-id="@customer.Id" class="js-delete btn-link">Delete</button>
                 </td>
             </tr>
         }
@@ -41,6 +40,27 @@
 else
 {
     <p>We don't have any customers yet</p>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#customers .js-delete").on("click", function () {
+                if (confirm("Are you sure about that?")) {
+                    var button = $(this);
+
+                    $.ajax({
+                        url: "/api/customers/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        success: function() {
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 }
 
 
