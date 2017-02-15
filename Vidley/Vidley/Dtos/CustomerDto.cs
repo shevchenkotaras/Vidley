@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using Vidley.Models;
 
@@ -18,7 +19,9 @@ namespace Vidley.Dtos
         public bool IsSubscribedToNewsletter { get; set; }
         
         public byte MembershipTypeId { get; set; }
-        
+
+        public MembershipTypeDto MembershipType { get; set; }
+
         //[If18YearsIfAMember]
         public DateTime? BirthDate { get; set; }
     }
