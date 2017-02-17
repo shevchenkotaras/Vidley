@@ -44,9 +44,11 @@ namespace Vidley.Controllers
 
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include(x => x.Genre);
-
-            return View(movies);
+            if (User.IsInRole(RoleName.CanManageMovies))
+            {
+                return View("List");
+            }
+            return View("ReadOnlyList");
         }
 
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1, 12)}")]
@@ -55,6 +57,7 @@ namespace Vidley.Controllers
             return Content(year + "/" + month);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Create()
         {
             var genres = _context.Genres.ToList();
