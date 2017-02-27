@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web.Mvc;
 using Vidley.Models;
 using Vidley.ViewModels;
@@ -25,6 +26,12 @@ namespace Vidley.Controllers
 
         public ActionResult Index()
         {
+            if (MemoryCache.Default["Genres"] == null)
+            {
+                MemoryCache.Default["Genres"] = _context.Genres.ToString();
+            }
+
+            var genres = MemoryCache.Default["Genres"] as IEnumerable<Genre>;
             return View();
         }
 
