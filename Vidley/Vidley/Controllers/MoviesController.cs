@@ -99,6 +99,7 @@ namespace Vidley.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var movie = _context.Movies.Include(i => i.Genre).SingleOrDefault(x => x.Id == id);
@@ -113,6 +114,7 @@ namespace Vidley.Controllers
             return View(viewNodel);
         }
 
+        [HttpPost]
         public ActionResult Update(Movie movie)
         {
             var movieInDb = _context.Movies.SingleOrDefault(x => x.Id == movie.Id);

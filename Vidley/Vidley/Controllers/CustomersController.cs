@@ -28,6 +28,7 @@ namespace Vidley.Controllers
             return View();
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
@@ -53,6 +54,7 @@ namespace Vidley.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Save(Customer customer)
         {
             var errors = ModelState
@@ -91,6 +93,7 @@ namespace Vidley.Controllers
             return RedirectToAction("Index", "Customers");
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
