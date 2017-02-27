@@ -157,7 +157,7 @@ namespace Vidley.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     DrivingLicense = model.DrivingLicense,
-                    Phone = model.Phone
+                    PhoneNumber = model.Phone
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
