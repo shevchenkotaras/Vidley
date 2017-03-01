@@ -85,7 +85,8 @@ namespace Vidley.Controllers.Api
             var customerInDb = _context.Customers.SingleOrDefault(x => x.Id == id);
             if (customerInDb == null)
                 return NotFound();
-
+            //master branch
+            //test branch
             _context.Customers.Remove(customerInDb);
             _context.SaveChanges();
 
