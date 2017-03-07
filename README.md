@@ -1,2 +1,2 @@
 # Vidley
-UdemuCourse
+UdemyCourse
